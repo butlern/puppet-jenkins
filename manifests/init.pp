@@ -81,6 +81,7 @@ class jenkins(
   $proxy_host         = undef,
   $proxy_port         = undef,
   $cli                = undef,
+  $cli_warpath        = $jenkins::params::cli_warpath,
 ) inherits jenkins::params {
 
   validate_bool($lts, $install_java, $repo)
@@ -133,7 +134,7 @@ class jenkins(
     }
   }
   if $cli {
-    class {'jenkins::cli':}
+    class {'jenkins::cli': warpath => $cli_warpath }
   }
 
   Anchor['jenkins::begin'] ->

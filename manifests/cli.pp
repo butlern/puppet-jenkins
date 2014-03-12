@@ -2,10 +2,12 @@
 #
 # Allow Jenkins commands to be issued from the command line
 #
-class jenkins::cli {
+class jenkins::cli(
+  $warpath = $jenkins::cli_warpath
+) {
 
-  $jar = '/usr/lib/jenkins/jenkins-cli.jar'
-  $extract_jar = 'unzip /usr/lib/jenkins/jenkins.war WEB-INF/jenkins-cli.jar'
+  $jar = "${warpath}/jenkins-cli.jar"
+  $extract_jar = "unzip ${warpath}/jenkins.war WEB-INF/jenkins-cli.jar"
   $move_jar = "mv WEB-INF/jenkins-cli.jar ${jar}"
   $remove_dir = 'rm -rf WEB-INF'
 
